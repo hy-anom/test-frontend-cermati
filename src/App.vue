@@ -119,7 +119,7 @@
 			<p class="footer-caption">© 2020 Anom Yulian. All rights reserved</p>
 		</section>
 		<section class="newsletter" :class="{'newsletter-shrink' : hideNewsletter}">
-			<div class=newsletter-close @click="hideNewsletter = true">&times;</div>
+			<div class=newsletter-close @click="closeNewsletter">&times;</div>
 			<p class="newsletter-title">Get latest update in web technologies</p>
 			<p class="newsletter-caption">
 				I write article related to web tehcnologies, such as design trends, development tools, UI/UX case studies and reviews, and more. Sign up to my newsletter to get them all.
@@ -154,11 +154,14 @@
 			window.removeEventListener('scroll', this.handleScroll);
 		},
 		methods: {
-			handleScroll (event) {
+			handleScroll(event) {
 				if(window.scrollY > 300 && this.getCookie('hideNewsletter') == '') {
 					this.hideNewsletter = false;
-					this.createCookie('hideNewsletter', 'true', 10);
 				}
+			},
+			closeNewsletter() {
+				this.hideNewsletter = true;
+				this.createCookie('hideNewsletter', 'true', 10);
 			},
 			createCookie(name,value,minutes) {
 				let expires = '';
@@ -216,7 +219,7 @@ p {
 	background-color: #E5E5E5;
 	padding: 12px 20px;
 	transition: all 0.15s;
-
+	z-index: 2;
 }
 .hero-hide-cookies {
 	transform: translate(0, -120px);
@@ -342,6 +345,7 @@ p {
 	margin: auto;
 }
 .feature-box {
+	display: flex;
 	flex-basis: 33.33%;
 }
 .feature-box-wrapper {
@@ -447,7 +451,11 @@ p {
 	height: 30px;
 	font-size: 12px;
 	font-weight: bold;
-
+	transition: all 0.15s;
+	cursor: pointer;
+}
+.newsletter-button:hover {
+	background-color: #cc6600;
 }
 
 @media only screen and (max-width: 480px) {
